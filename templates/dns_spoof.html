@@ -1,0 +1,185 @@
+{% extends "layout.html" %}
+{% block body %}
+    <nav id="main-nav">
+        <h1 class="logo">
+            <span class="text-medium"><i class="fas fa-shield-alt"></i> Univer</span><span class="text-primary">Sell</span>
+        </h1>
+        <ul>
+            <li><a href="/main">Home</a></li>
+            <li><a href="/logout"> <i class="fas fa-sign-out-alt"></i>  Logout </a></li>
+        </ul> 
+    </nav>
+    
+
+
+    <section id="user_area">
+        <div id="sidebar">
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Networking</a>
+                    </li>
+                    <li >
+                        <a href="/mac" >MAC Changer</a>
+                    </li>
+                    <li>
+                        <a href="/network">Network Scanning</a>
+                    </li>
+                    <li>
+                        <a href="/arp">ARP Spoofing</a>
+                    </li>
+                    <li>
+                        <a href="/sniff">Packet Sniffing</a>
+                    </li>
+                    <li class="sel">
+                        <a href="/dns">DNS Spoofer</a>
+                    </li><li>
+                        <a href="/file">File Interceptor</a>
+                    </li><li>
+                        <a href="/code">Code Injector</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Malware</a>
+                    </li>
+                    <li>
+                        <a href="/malware">Steal All Info</a>
+                    </li>
+                    <li>
+                        <a href="/steal">Steal WiFi Passwords</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Web Application Security</a>
+                    </li>
+                    <li>
+                        <a href="/dict">Dictionary Attack</a>
+                    </li>
+                    <li> 
+                        <a href="/crawl">Crawl Site</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="sub_section">
+            <br>
+            <h1 class="m-heading">DNS Spoofer</h1>
+            <div class="bottom-line"></div>
+            <br>
+            <div>
+                {% from "_form_helper.html" import render_field %}
+                {% include '_messages.html' %}
+                <br>
+                <form action="/dns" method="POST">
+                       
+                        <label for="target_ip">
+                            Target IP :
+                        </label>
+                        <br>
+                        {{ render_field(form.target_url, placeholder="eg: www.bing.com") }}
+                        <br>
+                        <br>
+                        <label for="spoof_ip">
+                            Spoof IP :
+                        </label>
+                        <br>
+                    {{ render_field(form.spoof_ip, placeholder="eg: 192.168.1.25") }}
+                    <br>
+                    <button type="submit" class="btn mr">Spoof IP</button>
+                    <button type="button" id="restore" class="btn mr">Restore IP</button>
+                    <button type="button" id="drop" class="btn mr">Drop Connection</button>
+                    <button type="button" id="connect" class="btn">Restore Connection</button>
+                
+                </form>
+                    <br><br>
+                    <div id="output">
+                        <div id="header">Output</div>
+                           
+                            {% if results %}
+                            <div class="results_area">
+                                {% for result in results %}
+                                    <span class="help-inline">{{ result }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            
+                           <br>
+                            <span class="results">
+                                Results Not Available
+                            </span>
+                            <br>
+                        {% endif %}
+                    </div>
+                   
+            </div>
+        </div>
+    </section>
+  
+
+    <script>
+        var  navbar = document.getElementById("main-nav");
+        window.onscroll = function(){
+            if(document.documentElement.scrollTop >= 100){
+                 navbar.style.opacity = '0.85';
+            }else {
+                 navbar.style.opacity = '1';
+            }
+        }
+
+       $(document).ready(function(){
+        $("#restore").click(function(){
+
+            $.ajax({
+                type: 'POST',
+                url: "/restore_url",
+                success: function(data){
+
+                   window.location.href='/dns'
+                   
+                }   
+                  
+            });
+        })
+
+
+        $("#drop").click(function(){
+
+            $.ajax({
+                type: 'POST',
+                url: "/drop_connection",
+                success: function(data){
+
+                window.location.href='/dns' 
+                
+                }   
+                
+            });
+        })
+
+        $("#connect").click(function(){
+
+            $.ajax({
+                type: 'POST',
+                url: "/restore_connection",
+                success: function(data){
+
+                window.location.href='/dns' 
+                
+                }   
+                
+            });
+        })
+        
+
+       })
+
+    </script>
+
+{% endblock %}

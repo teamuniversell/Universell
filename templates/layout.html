@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/fontawesome/css/all.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css')}}">
+    <!-- <link rel="stylesheet" href="assets/css/tablet.css" media="screen and (max-width:768px)">
+    <link rel="stylesheet" href="assets/css/mobile.css" media="screen and (max-width:500px)"> -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/jquery.fancybox.min.css')}}" />
+    <script src="{{ url_for('static', filename='assets/js/jquery.fancybox.min.js') }}"></script>
+    <title>Universell</title>
+</head>
+<body>
+
+
+{% block body %} {% endblock %}
+
+
+<footer>
+    <div class="container">
+        <div>
+            Copyright &copy; 2019 All Rights Reserved by Dr Qasim Ali.
+        </div>
+        <div>
+            <a href="www.facebook.com"><i class="fab fa-facebook"></i></a>
+            <a href="www.facebook.com"><i class="fab fa-twitter"></i></a>
+            <a href="www.facebook.com"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    </footer>
+
+<script src="{{ url_for('static', filename='assets/js/typed.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/main.js')}}"></script>
+</body>
+</html>

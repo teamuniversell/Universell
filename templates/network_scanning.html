@@ -1,0 +1,144 @@
+{% extends "layout.html" %}
+{% block body %}
+    <nav id="main-nav">
+        <h1 class="logo">
+            <span class="text-medium"><i class="fas fa-shield-alt"></i> Univer</span><span class="text-primary">Sell</span>
+        </h1>
+        <ul>
+            <li><a href="/main">Home</a></li>
+            <li><a href="/logout"> <i class="fas fa-sign-out-alt"></i>  Logout </a></li>
+        </ul>
+    </nav>
+    
+    
+
+
+    <section id="user_area">
+        <div id="sidebar">
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Networking</a>
+                    </li>
+                    <li >
+                        <a href="/mac" >MAC Changer</a>
+                    </li>
+                    <li class="sel">
+                        <a href="/network">Network Scanning</a>
+                    </li>
+                    <li>
+                        <a href="/arp">ARP Spoofing</a>
+                    </li>
+                    <li>
+                        <a href="/sniff">Packet Sniffing</a>
+                    </li>
+                    <li>
+                        <a href="/dns">DNS Spoofer</a>
+                    </li><li>
+                        <a href="/file">File Interceptor</a>
+                    </li><li>
+                        <a href="/code">Code Injector</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Malware</a>
+                    </li>
+                    <li>
+                        <a href="/malware">Steal All Info</a>
+                    </li>
+                    <li>
+                        <a href="/steal">Steal WiFi Passwords</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Web Application Security</a>
+                    </li>
+                    <li>
+                        <a href="/dict">Dictionary Attack</a>
+                    </li>
+                    <li> 
+                        <a href="/crawl">Crawl Site</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="sub_section">
+            <br>
+            <h1 class="m-heading">Network Scanning</h1>
+            <div class="bottom-line"></div>
+            <br>
+            <div>
+                {% from "_form_helper.html" import render_field %}
+                {% include '_messages.html' %}
+                <br>
+                <form action="/network" method="POST">
+                  
+                    <label for="subnet">
+                        Subnet:
+                    </label>
+                    <br>
+                    {{ render_field(form.ip, placeholder="eg: 192:168.0.1/24") }}
+                    <br>
+                    <button type="submit" class="btn">Scan</button>
+                </form>
+
+                <table>
+                    <thead>
+                        <th>IP</th>
+                        <th>MAC</th>
+                    </thead>
+                    <tbody>
+                       {% if results %}
+                       {% for result in results %}
+                        <tr>
+                            <td>
+                                <span >
+                                   {{ result.ip }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    {{ result.mac }}
+                                </span>
+                            </td>
+                        </tr>
+                       {% endfor %}
+                        
+                       {% else %}
+                        <tr>
+                            <td colspan="2">
+                                <span class="results">
+                                    Results Not Available
+                                </span>
+                            </td>
+                        </tr>
+                       {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+
+  
+
+    <script>
+        var  navbar = document.getElementById("main-nav");
+        window.onscroll = function(){
+            if(document.documentElement.scrollTop >= 200){
+                 navbar.style.opacity = '0.85';
+            }else {
+                 navbar.style.opacity = '1';
+            }
+        }
+
+    </script>
+
+{% endblock %}

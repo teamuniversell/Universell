@@ -1,0 +1,144 @@
+
+    {% extends "layout.html" %}
+    {% block body %} 
+    <nav id="main-nav">
+        <h1 class="logo">
+            <span class="text-medium"><i class="fas fa-shield-alt"></i> Univer</span><span class="text-primary">Sell</span>
+        </h1>
+        <ul>
+            <li><a href="/" >Features</a></li>
+            <li><a href="/about" class="active">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/login">Log In</a></li>
+            <li><a href="/register">Get Started</a></li>
+        </ul>
+    </nav>
+
+
+<header id="sub-showcase">
+    <div class="showcase-content">
+        <h1 class="m-heading">
+           About Us
+        </h1>
+        <p class="lead">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita repellat enim omnis cumque a doloremque!
+        </p>
+    </div>
+</header>
+
+<section id="sub-desc">
+    <div class="container">
+       <div id="summary">
+            <div>
+                <h1>What We Do</h1>
+                <div class="bottom-line"></div>
+                <p>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum praesentium aliquam maxime velit magni! Nostrum necessitatibus error saepe. Veritatis nemo aliquid autem ut molestiae repellat totam asperiores neque rem ex dignissimos tempore facere, pariatur laborum! Tempora, molestias dicta placeat deserunt vitae minus voluptas ratione sit. Dolore culpa fugiat unde harum.
+                </p>
+           </div>
+
+            <div class="item">
+
+                <img src="{{ url_for('static', filename='assets/img/image3.jpeg')}}">
+               
+                <div class="icons">
+                    <a href="{{ url_for('static', filename='assets/img/image3.jpeg')}}" title="View image" class="openButton" data-fancybox data-caption="About Image">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </div>
+                <div class="imageOverlay"></div>
+
+            </div>
+       </div>
+    </div>
+    <br><br>
+  </div>
+</section>
+
+
+<section id="about-gallery">
+    <div class="container">
+        <div class="bottom-line-light"></div>
+        <div id="boxes">
+            <div>
+                <h1>
+                     <i class="fas fa-users"></i>
+                     <br>
+                     Sample Heading
+                </h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, maiores.
+                </p>
+             </div>
+             <div>
+                <h1>
+                     <i class="fas fa-users"></i>
+                     <br>
+                     Sample Heading
+                </h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, maiores.
+                </p>
+             </div>
+             <div>
+                <h1>
+                     <i class="fas fa-users"></i>
+                     <br>
+                     Sample Heading
+                </h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, maiores.
+                </p>
+             </div>
+             <div>
+                <h1>
+                     <i class="fas fa-users"></i>
+                     <br>
+                     Sample Heading
+                </h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, maiores.
+                </p>
+             </div>
+             <div>
+                <h1>
+                     <i class="fas fa-users"></i>
+                     <br>
+                     Sample Heading
+                </h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, maiores.
+                </p>
+             </div>
+             <div>
+                <h1>
+                     <i class="fas fa-users"></i>
+                     <br>
+                     Sample Heading
+                </h1>
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis, maiores.
+                </p>
+             </div>
+        </div>
+    </div>
+    <br><br>
+</section>
+
+
+<script>
+    var navbar = document.getElementById("main-nav");
+    window.onscroll = function(){
+        if(document.documentElement.scrollTop >= 400){
+            navbar.style.opacity = '0.85';
+        }else {
+            navbar.style.opacity = '1';
+        }
+    }
+
+  
+
+
+</script>
+
+{% endblock %}

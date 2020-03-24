@@ -1,0 +1,59 @@
+  {% extends "layout.html" %}
+  {% block body %}
+
+    <nav id="main-nav">
+        <h1 class="logo">
+            <span class="text-medium"><i class="fas fa-shield-alt"></i> Univer</span><span class="text-primary">Sell</span>
+        </h1>
+        <ul>
+            <li><a href="/" >Features</a></li>
+            <li><a href="/about" >About Us</a></li>
+            <li><a href="/blog" >Blog</a></li>
+            <li><a href="/login" >Log In</a></li>
+            <li><a href="/register" class="active">Get Started</a></li>
+        </ul>
+    </nav>
+
+
+  <section id="form_area">
+    <div class="container">
+          <div class="join_form">
+            <div>
+              {% from "_form_helper.html" import render_field %}
+              {% include '_messages.html' %}
+              <form action="/register" method="POST">
+                  <br>
+              <h1>Get Started With <span class="text-medium">Univer</span><span class="text-primary">Sell</span></h1>
+              <div class="bottom-line"></div>
+              {{ render_field(form.name, placeholder="Name*") }}
+              {{ render_field(form.email, placeholder="Email*") }}
+              {{ render_field(form.password, placeholder="Password*") }}
+              {{ render_field(form.password_confirm, placeholder="Confirm Password*") }}
+              <br>
+              <button type="submit" class="btn">Submit</button>
+              </form>
+              <br>
+              
+              <a href="login.html" class="text-primary">Already have an account? Sign In</a>
+              <br>
+              <br>
+              <br>
+              </div>
+          </div>
+    </div>
+</section>
+
+
+  <script>
+      var navbar = document.getElementById("main-nav");
+      window.onscroll = function(){
+          if(document.documentElement.scrollTop >= 100){
+              navbar.style.opacity = '0.85';
+          }else {
+              navbar.style.opacity = '1';
+          }
+      }
+
+  </script>
+
+{% endblock %}

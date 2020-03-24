@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+{% block body %}
+    <nav id="main-nav">
+        <h1 class="logo">
+            <span class="text-medium"><i class="fas fa-shield-alt"></i> Univer</span><span class="text-primary">Sell</span>
+        </h1>
+        <ul>
+            <li><a href="/main">Home</a></li>
+            <li><a href="/logout"> <i class="fas fa-sign-out-alt"></i>  Logout </a></li>
+        </ul>
+    </nav>
+    
+    
+
+
+    <section id="user_area">
+        <div id="sidebar">
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Networking</a>
+                    </li>
+                    <li >
+                        <a href="/mac" >MAC Changer</a>
+                    </li>
+                    <li>
+                        <a href="/network">Network Scanning</a>
+                    </li>
+                    <li>
+                        <a href="/arp">ARP Spoofing</a>
+                    </li>
+                    <li class="sel">
+                        <a href="/sniff">Packet Sniffing</a>
+                    </li>
+                    <li>
+                        <a href="/dns">DNS Spoofer</a>
+                    </li><li>
+                        <a href="/file">File Interceptor</a>
+                    </li><li>
+                        <a href="/code">Code Injector</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Malware</a>
+                    </li>
+                    <li>
+                        <a href="/malware">Steal All Info</a>
+                    </li>
+                    <li>
+                        <a href="/steal">Steal WiFi Passwords</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="side_section">
+                <ul>
+                    <li>
+                        <a href="#">Web Application Security</a>
+                    </li>
+                    <li>
+                        <a href="/dict">Dictionary Attack</a>
+                    </li>
+                    <li> 
+                        <a href="/crawl">Crawl Site</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div id="sub_section">
+            <br>
+            <h1 class="m-heading">Packet Sniffing</h1>
+            <div class="bottom-line"></div>
+            <br>
+            <div>
+                {% from "_form_helper.html" import render_field %}
+                {% include '_messages.html' %}
+                <br>
+                <form action="/sniff" method="POST">
+                  
+                    <label for="interface">
+                       Interface: 
+                    </label>
+                    <br>
+                    {{ render_field(form.interface, placeholder="eg: eth0, lo, wlan0") }}
+                    <br>
+                    <button type="submit" class="btn">Start Sniffing</button>
+                   
+                </form>
+                <br>
+            
+                <table id="sniffed">
+                    <thead>
+                        <th>URL</th>
+                        <th>Possible Email/Password</th>
+                    </thead>
+                    <tbody id="sniffed_results">
+                        <tr>
+                            <td colspan="2" id="sniff_not_available">
+                                <span class="results">
+                                    Results Not Available
+                                </span>
+                            </td>
+                        </tr>
+                       
+                      
+                    </tbody>
+                </table>
+                <button id="refresh" class="btn mr">
+                    Refresh
+                </button>
+                <button id="clear" class="btn">
+                   Clear
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+  
+
+    <script>
+        var  navbar = document.getElementById("main-nav");
+        window.onscroll = function(){
+            if(document.documentElement.scrollTop >= 200){
+                 navbar.style.opacity = '0.85';
+            }else {
+                 navbar.style.opacity = '1';
+            }
+        }
+        $(document).ready( function() {
+            // $('#refresh').click();
+            loadResults()
+        });
+
+        function loadResults() {
+                $.ajax({
+                type: 'POST',
+                url: "/sniff_array",
+                success: function(data){
+                    if(data != ""){
+                       if(data.results.length != 0){
+                            var length = $("#sniffed_results .results").length
+                            if(length){
+                                $("#sniffed_results").html('')
+                            }
+                            if($("tbody").html()){
+                                $("tbody").html('')
+                            }
+                            data.results.forEach(element => {
+                            row = `<tr>
+                                        <td>
+                                            <a href='${element.url}'>
+                                                ${element.url}
+                                            </a>
+                                        </td>
+                                        <td>${element.credentials}</td>
+                                    </tr>`
+                            $("#sniffed_results").append(row)
+                            });
+                       }
+                    }
+                   
+                }     
+                  
+            });
+        }
+
+        // setInterval(function(){
+        //     loadResults() 
+        // }, 5000);
+
+        $("#refresh").click(function(){
+            loadResults()
+        })
+
+        $("#clear").click(function(){
+            $("tbody").html('')
+            $.ajax({
+                type: 'POST',
+                url: "/clear",
+                success: function(data){
+                    if(data == "cleared"){
+                        $("tbody").html('')
+                        row = ` <tr>
+                                <td colspan="2" id="sniff_not_available">
+                                    <span class="results">
+                                        Results Not Available
+                                    </span>
+                                </td>
+                            </tr>`
+                        $("#sniffed_results").append(row)    
+                       
+                    }
+                   
+                }     
+                  
+            });
+        })
+        
+
+    </script>
+
+{% endblock %}
